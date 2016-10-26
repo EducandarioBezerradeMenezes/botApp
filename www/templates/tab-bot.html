@@ -1,0 +1,23 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Controle BOT">
+  <ion-content class="padding">
+    <img ng-src="{{captcha.url}}" ng-if="captcha.url" style="width: 100%"/>
+    <button class="button button-block button-positive" ng-if="!captcha.url" ng-click="showCaptcha()">Cadastrar Cupons</button>
+
+    <!--Textbox: CNPJ of Cupom-->
+    <label class="item item-input" ng-if="captcha.url">
+      <span class="input-label">CAPTCHA:</span>
+      <input name="txtCaptcha" type="text" placeholder="EX: A9A9" ng-model="captcha.valor" ng-required="true" ui-captcha/>
+    </label>
+    <br/>
+
+
+    <button class="button button-block button-positive" ng-if="captcha.url" ng-disabled="captcha.valor.length!=4" ng-click="resolveCaptcha(captcha)">Resolver Captcha</button>
+
+  </ion-content>
+</ion-view>
