@@ -5,5 +5,5 @@
 angular.module("botapp").value("config",{
 
   //Connect to server
-  baseUrl:"http://192.168.25.27:8000",
+  baseUrl:"http://localhost:8000",
 });

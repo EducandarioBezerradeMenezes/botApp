@@ -6,8 +6,67 @@
 -->
 <ion-view view-title="Controle BOT">
   <ion-content class="padding">
+
+    <!--Table of Estados-->
+    <div class="list card" ng-if="!captcha.url">
+
+      <!--Cupons Estados-->
+      <div class="row item item-divider">
+        <div class="col">
+          Cupons:
+        </div>
+      </div>
+
+      <!--Headers-->
+      <div class="row item item-text-wrap" ng-show="cupons[0]">
+        <div class="col">
+          <font style="text-shadow: 1px 0px 1px black">Estado</font>
+        </div>
+        <div class="col">
+          <font style="text-shadow: 1px 0px 1px black">Quantidade</font>
+        </div>
+      </div>
+
+      <!--Estado Info-->
+      <div class="row item item-body" ng-repeat="cupom in cupons">
+        <div class="col">
+          <p>{{cupom.estado | estado}}:</p>
+        </div>
+        <div class="col">
+          <p>{{cupom.quantity}}</p>
+        </div>
+      </div>
+
+      <!--Chaves Estados-->
+      <div class="row item item-divider">
+        <div class="col">
+          Chaves:
+        </div>
+      </div>
+
+      <!--Headers-->
+      <div class="row item item-text-wrap" ng-if="chaves[0]">
+        <div class="col">
+          <font style="text-shadow: 1px 0px 1px black">Estado</font>
+        </div>
+        <div class="col">
+          <font style="text-shadow: 1px 0px 1px black">Quantidade</font>
+        </div>
+      </div>
+
+      <!--Estado Info-->
+      <div class="row item item-body" ng-repeat="chave in chaves">
+        <div class="col">
+          <p>{{chave.estado | estado}}:</p>
+        </div>
+        <div class="col">
+          <p>{{chave.quantity}}</p>
+        </div>
+      </div>
+    </div>
+
     <img ng-src="{{captcha.url}}" ng-if="captcha.url" style="width: 100%"/>
-    <button class="button button-block button-positive" ng-if="!captcha.url" ng-click="showCaptcha()">Cadastrar Cupons</button>
+    <button class="button button-block button-dark" ng-if="!captcha.url" ng-click="showCaptcha()">Cadastrar Cupons</button>
 
     <!--Textbox: CNPJ of Cupom-->
     <label class="item item-input" ng-if="captcha.url">
@@ -17,7 +76,8 @@
     <br/>
 
 
-    <button class="button button-block button-positive" ng-if="captcha.url" ng-disabled="captcha.valor.length!=4" ng-click="resolveCaptcha(captcha)">Resolver Captcha</button>
+    <button class="button button-block button-dark" ng-if="captcha.url" ng-disabled="captcha.valor.length!=4" ng-click="resolveCaptcha(captcha)">Resolver Captcha</button>
+    <button class="button button-block button-assertive" ng-if="captcha.url" ng-click="captcha.url = !captcha.url">Cancelar</button>
 
   </ion-content>
 </ion-view>
