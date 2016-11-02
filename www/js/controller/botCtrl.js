@@ -24,25 +24,43 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
   }
 
   //Show the Captcha Image
-  $scope.showCaptcha = function(){
+  $scope.showCaptcha = function(cupom){
+
+    //Cupom or Chave
+    $scope.cupom = cupom;
+
     captchaApi.getCaptcha().success(captchaUrl =>{
 
       //No Captcha to solve
       if(captchaUrl=="No Captcha"){
 
-        //Alow API to Register Cupons
-        captchaApi.postCaptcha().success(result =>{
-          $scope.result = result;
-        });
-
-      //Return Captcha URL
-      }else $scope.captcha.url = captchaUrl;
+        //Register Cupom or Chave
+        if(cupom) $scope.resolveCupom();
+        else      $scope.resolveChave();
+      }
+      else $scope.captcha.url = captchaUrl;
     });
   }
 
-  //Send the Resolved Captcha to the API
-  $scope.resolveCaptcha = function(captcha){
-    captchaApi.postCaptcha(captcha).success(result =>{
+  //Register Cupom with Captcha
+  $scope.registerCupom = function(captcha){
+
+    //Send the Resolved Captcha to the API
+    cupomApi.postCupom(captcha).success(result =>{
+      //Return the result of first register
+      $scope.result = result;
+
+      //Reload Page
+      $window.location.reload();
+    });
+  }
+
+  //Register Chave with Captcha
+  $scope.registerChave = function(captcha){
+
+    //Send the Resolved Captcha to the API
+    cupomApi.postChave(captcha).success(result =>{
+
       //Return the result of first register
       $scope.result = result;
 
@@ -52,11 +70,14 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
   }
 
   $scope.cancel = function(){
-    
+
     //Reload Page
     $window.location.reload();
   }
 
   //Captcha
   $scope.captcha = {};
+
+  //Cupom or Chave
+  $scope.cupom = true;
 });

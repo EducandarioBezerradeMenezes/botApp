@@ -66,9 +66,12 @@
     </div>
 
     <img ng-src="{{captcha.url}}" ng-if="captcha.url" style="width: 100%"/>
-    <button class="button button-block button-dark" ng-if="!captcha.url" ng-click="showCaptcha()">Cadastrar Cupons</button>
 
-    <!--Textbox: CNPJ of Cupom-->
+    <!--Register Either Chave or Cupom-->
+    <button class="button button-block button-dark"   ng-if="!captcha.url" ng-click="showCaptcha(true)">Cadastrar Cupons</button>
+    <button class="button button-block button-stable" ng-if="!captcha.url" ng-click="showCaptcha(false)">Cadastrar Chaves</button>
+
+    <!--Captcha Text-->
     <label class="item item-input" ng-if="captcha.url">
       <span class="input-label">CAPTCHA:</span>
       <input name="txtCaptcha" type="text" placeholder="EX: A9A9" ng-model="captcha.valor" ng-required="true" ui-captcha/>
@@ -76,7 +79,11 @@
     <br/>
 
 
-    <button class="button button-block button-dark" ng-if="captcha.url" ng-disabled="captcha.valor.length!=4" ng-click="resolveCaptcha(captcha)">Resolver Captcha</button>
+    <!--Send Captcha to Resolve Chave or Cupom-->
+    <button class="button button-block button-dark"   ng-if="captcha.url && cupom"  ng-disabled="captcha.valor.length!=4" ng-click="registerCupom(captcha)">Resolver Captcha</button>
+    <button class="button button-block button-stable" ng-if="captcha.url && !cupom" ng-disabled="captcha.valor.length!=4" ng-click="registerChave(captcha)">Resolver Captcha</button>
+
+    <!--Cancel Operation-->
     <button class="button button-block button-assertive" ng-if="captcha.url" ng-click="cancel()">Cancelar</button>
 
   </ion-content>
