@@ -1,4 +1,4 @@
-angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupomApi) {
+angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupomApi, $window) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -27,8 +27,6 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
   $scope.showCaptcha = function(){
     captchaApi.getCaptcha().success(captchaUrl =>{
 
-      console.log(captchaUrl);
-
       //No Captcha to solve
       if(captchaUrl=="No Captcha"){
 
@@ -37,7 +35,7 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
           $scope.result = result;
         });
 
-      //Retorna URL do Captcha
+      //Return Captcha URL
       }else $scope.captcha.url = captchaUrl;
     });
   }
@@ -45,12 +43,18 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
   //Send the Resolved Captcha to the API
   $scope.resolveCaptcha = function(captcha){
     captchaApi.postCaptcha(captcha).success(result =>{
-      //Retorna o resultado do primeiro cadastro
+      //Return the result of first register
       $scope.result = result;
 
-      //Limpa o Captcha Antigo
-      $scope.captcha = {};
+      //Reload Page
+      $window.location.reload();
     });
+  }
+
+  $scope.cancel = function(){
+    
+    //Reload Page
+    $window.location.reload();
   }
 
   //Captcha

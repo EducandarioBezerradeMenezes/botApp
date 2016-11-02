@@ -77,7 +77,7 @@
 
 
     <button class="button button-block button-dark" ng-if="captcha.url" ng-disabled="captcha.valor.length!=4" ng-click="resolveCaptcha(captcha)">Resolver Captcha</button>
-    <button class="button button-block button-assertive" ng-if="captcha.url" ng-click="captcha.url = !captcha.url">Cancelar</button>
+    <button class="button button-block button-assertive" ng-if="captcha.url" ng-click="cancel()">Cancelar</button>
 
   </ion-content>
 </ion-view>
