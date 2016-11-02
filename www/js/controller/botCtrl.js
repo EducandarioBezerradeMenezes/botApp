@@ -31,12 +31,14 @@ angular.module('botapp').controller('botCtrl', function($scope, captchaApi, cupo
 
     captchaApi.getCaptcha().success(captchaUrl =>{
 
+      console.log(captchaUrl);
+
       //No Captcha to solve
       if(captchaUrl=="No Captcha"){
 
         //Register Cupom or Chave
-        if(cupom) $scope.resolveCupom();
-        else      $scope.resolveChave();
+        if(cupom) $scope.registerCupom();
+        else      $scope.registerChave();
       }
       else $scope.captcha.url = captchaUrl;
     });
